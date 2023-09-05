@@ -1,0 +1,17 @@
+import { useEffect } from "react";
+
+function useOutsideAlerter(ref, open, onClose) {
+  useEffect(() => {
+
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
+}
+export default useOutsideAlerter;
